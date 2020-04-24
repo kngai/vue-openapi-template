@@ -1,6 +1,8 @@
 # vue-pygeoapi-template
 
-A generic Vue starter template for developing a UI for a pygeoapi instance (alternative for `f=html`). This does not contain any special CSS or styling, as it's meant as a starting point. Web content is mostly obtained through pygeoapi's `json` and `jsonld` data.
+A generic Vue starter template for developing a UI that points to a pygeoapi instance (alternative for `f=html`). This does not contain any special CSS or styling, as it's meant as a starting point. Web content is primarily obtained through pygeoapi's `json` and `jsonld` data with a few exceptions of:
+- version
+- logo image
 
 ## Project setup
 
@@ -12,29 +14,14 @@ Requires:
 npm install
 ```
 
-Setup your `.env` file:
-
-```sh
-vi .env                 # modify for your pygeoapi instance
-
-# You can specify additional env files by placing the following files in your project root:
-.env                    # loaded in all cases
-.env.local              # loaded in all cases, ignored by git
-.env.[modeName]         # only loaded in specified mode
-.env.[modeName].local   # only loaded in specified mode, ignored by git
-
-# To build for specific modes 
-npx vue-cli-service build --mode {modeName}
-```
-
 ### Compiles and hot-reloads for development
 ```sh
-# http://localhost:8080/ using .env (and .env.development if exists)
+# http://localhost:8080/ using .env (and .env.development)
 npm run serve
 
 # OR for expanded command line functionality
 npx vue-cli-service serve
-npx vue-cli-service serve --mode {modeName}
+npx vue-cli-service serve --mode {mode}
 ```
 
 ### Compiles and minifies for production
@@ -52,7 +39,20 @@ npx vue-cli-service build --mode production
 npm run lint
 ```
 
-## Environment variables
+### Environment configuration
+Edit your `.env` config to your production environment and edit your `.env.development` to your development environment.
+
+```sh
+# You can specify additional env files by placing the following files in your project root:
+.env                  # loaded in all cases
+.env.local            # loaded in all cases, ignored by git
+.env.[mode]           # only loaded in specified mode (ie. npm run serve will load configs based on .env.development)
+.env.[mode].local     # only loaded in specified mode, ignored by git
+
+# To build for specific modes 
+npx vue-cli-service build --mode {mode}
+```
+
 See [Modes and Environment Variables](https://cli.vuejs.org/guide/mode-and-env.html#modes)
 
 ### Customize configuration

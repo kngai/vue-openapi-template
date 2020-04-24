@@ -9,8 +9,17 @@
 import AppHeader from '@/components/AppHeader.vue'
 
 export default {
+  created() {
+    this.getRootJson()
+  },
   components: {
     AppHeader
+  },
+  methods: {
+    getRootJson() {
+      this.$store.dispatch('base/getJson')
+      this.$store.dispatch('base/getJsonld')
+    }
   }
 }
 </script>

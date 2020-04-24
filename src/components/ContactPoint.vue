@@ -1,8 +1,8 @@
 <template>
-  <div v-if="providerLoaded">
+  <div v-if="jsonldLoaded">
     <div>
-      <strong>{{ provider.name }}</strong><br>
-      <a :href="provider.url" target="_blank">{{ provider.url }}</a>
+      <strong>{{ baseJsonld.name }}</strong><br>
+      <a :href="baseJsonld.url" target="_blank">{{ baseJsonld.url }}</a>
     </div>
     <br><br>
     <div>
@@ -30,24 +30,20 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from 'vuex'
+
 export default {
   name: 'ContactPoint',
-  props: {
-    provider: Object
-  },
   computed: {
-    providerLoaded() {
-      return Object.keys(this.provider).length > 0
-    },
-    contactPoint() {
-      return this.provider.contactPoint
-    },
-    hoursAvailable() {
-      return this.contactPoint.hoursAvailable
-    },
-    address() {
-      return this.provider.address
-    }
+    ...mapState({
+      jsonldLoaded: state => state.base.jsonldLoaded
+    }),
+    ...mapGetters('base', {
+      baseJsonld: 'baseJsonld',
+      contactPoint: 'contactPoint',
+      address: 'address',
+      hoursAvailable: 'hoursAvailable'
+    })
   }
 }
 </script>

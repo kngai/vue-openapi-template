@@ -1,107 +1,58 @@
 <template>
   <div>
-    <h1>{{ rootld.name }}</h1>
+    <h1>{{ baseJsonld.name }}</h1>
 
-    <p>{{ rootld.description }}</p>
+    <p>{{ baseJsonld.description }}</p>
 
     <strong>Keywords</strong>:
-    <ul>
-      <li v-for="keyword in rootld.keywords" :key="keyword">{{ keyword }}</li>
+    <ul v-if="jsonldLoaded">
+      <li v-for="keyword in keywords" :key="keyword">{{ keyword }}</li>
     </ul>
 
     <div>
-      <strong>Terms of service:</strong> <span>{{ rootld.termsOfService }}</span><br>
-      <strong>License:</strong> <a :href="rootld.license" target="_blank">{{ rootld.license }}</a>
+      <strong>Terms of service:</strong> <span>{{ baseJsonld.termsOfService }}</span><br>
+      <strong>License:</strong> <a :href="baseJsonld.license" target="_blank">{{ baseJsonld.license }}</a>
     </div>
 
     <hr>
 
-    <h2>Collections</h2>
-
-    <a :href="collections.href">Source collections</a>
-
-    <h2>Processess</h2>
-    <a :href="pygeoapiHost + '/processes'">Source processes</a>
-
-    <h2>API Definition</h2>
-    <a :href="openApiDefinition.href + '?f=html'">Source OpenAPI definition as HTML</a><br>
-    <a :href="openApiDefinition.href + '?f=json'">Source OpenAPI definition as JSON</a>
-
-    <h2>Conformance</h2>
-    <a :href="pygeoapiHost + '/conformance'">Source conformances</a>
+    <h2>pygeoapi Links</h2>
+    <ul v-if="jsonLoaded">
+      <li v-for="link in links" :key="link.href">
+        <a
+          :href="link.href"
+          :rel="link.rel"
+          :type="link.type"
+          :hreflang="Object.prototype.hasOwnProperty.call(link, 'hreflang') ? link.hreflang : false">{{ link.title }}
+        </a>
+      </li>
+    </ul>
 
     <hr>
 
-    <contact-point :provider="provider"></contact-point>
+    <contact-point></contact-point>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 import ContactPoint from '@/components/ContactPoint.vue'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'Home',
   components: {
     ContactPoint
   },
-  created() {
-    this.getRoot()
-  },
-  data() {
-    return {
-      pygeoapiHost: process.env.VUE_APP_PYGEOAPI_HOST,
-      rootld: {},
-      root: {}
-    }
-  },
-  methods: {
-    getRoot() {
-      const path = this.pygeoapiHost
-
-      // jsonld
-      axios.get(path + '?f=jsonld')
-        .then((res) => {
-          this.rootld = res.data
-        })
-        .catch((error) => {
-          console.error(error)
-        })
-
-      // json
-      axios.get(path + '?f=json')
-        .then((res) => {
-          this.root = res.data
-        })
-        .catch((error) => {
-          console.error(error)
-        })
-    },
-    getLink(linkName) {
-      if (Object.prototype.hasOwnProperty.call(this.root, 'links')) {
-        return this.root.links.filter(link => link.href === this.pygeoapiHost + '/' + linkName)[0]
-      } else {
-        return {}
-      }
-    }
-  },
   computed: {
-    provider() {
-      if (Object.prototype.hasOwnProperty.call(this.rootld, 'provider')) {
-        return this.rootld.provider
-      } else {
-        return {}
-      }
-    },
-    collections() {
-      return this.getLink('collections')
-    },
-    conformance() {
-      return this.getLink('conformance')
-    },
-    openApiDefinition() {
-      return this.getLink('openapi')
-    }
+    ...mapState({
+      jsonldLoaded: state => state.base.jsonldLoaded,
+      jsonLoaded: state => state.base.jsonLoaded,
+    }),
+    ...mapGetters('base', {
+      baseJsonld: 'baseJsonld',
+      keywords: 'keywords',
+      links: 'links'
+    })
   }
 }
 </script>

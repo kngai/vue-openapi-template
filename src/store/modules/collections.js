@@ -1,5 +1,5 @@
 /*
-Vuex module to retrieve the root (base) json and jsonld of a pygeoapi instance
+Vuex module to retrieve the collections json and jsonld of a pygeoapi instance
 */
 
 import axios from 'axios'
@@ -16,56 +16,28 @@ const state = {
 
 // getters
 const getters = {
-  baseJson: (state) => {
+  json: (state) => {
     return state.json
   },
-  baseJsonld: (state) => {
+  jsonld: (state) => {
     return state.jsonld
   },
 
   // from json
-  links: (state, getters) => {
+  collections: (state, getters) => {
     if (state.jsonLoaded) {
-      return getters.baseJson.links
+      return getters.json.collections
     } else {
-      return {}
+      return []
     }
   },
 
   // from jsonld
-  keywords: (state, getters) => {
+  dataset: (state, getters) => {
     if (state.jsonldLoaded) {
-      return getters.baseJsonld.keywords
+      return getters.jsonld.dataset
     } else {
-      return {}
-    }
-  },
-  provider: (state, getters) => {
-    if (state.jsonldLoaded) {
-      return getters.baseJsonld.provider
-    } else {
-      return {}
-    }
-  },
-  contactPoint: (state, getters) => {
-    if (state.jsonldLoaded) {
-      return getters.provider.contactPoint
-    } else {
-      return {}
-    }
-  },
-  address: (state, getters) => {
-    if (state.jsonldLoaded) {
-      return getters.provider.address
-    } else {
-      return {}
-    }
-  },
-  hoursAvailable: (state, getters) => {
-    if (state.jsonldLoaded) {
-      return getters.contactPoint.hoursAvailable
-    } else {
-      return {}
+      return []
     }
   }
 }
@@ -89,7 +61,7 @@ const mutations = {
 // actions
 const actions = {
   getJson({commit}) {
-    axios.get(PYGEOAPI_HOST + '?f=json')
+    axios.get(PYGEOAPI_HOST + '/collections?f=json')
       .then((res) => {
         commit('setJson', { json: res.data })
         commit('setLoadedJson', true)
@@ -101,7 +73,7 @@ const actions = {
       })
   },
   getJsonld({commit}) {
-    axios.get(PYGEOAPI_HOST + '?f=jsonld')
+    axios.get(PYGEOAPI_HOST + '/collections?f=jsonld')
       .then((res) => {
         commit('setJsonld', { jsonld: res.data })
         commit('setLoadedJsonld', true)

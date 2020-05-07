@@ -23,6 +23,7 @@
           :href="link.href"
           :rel="link.rel"
           :type="link.type"
+          target="_blank"
           :hreflang="Object.prototype.hasOwnProperty.call(link, 'hreflang') ? link.hreflang : false">{{ link.title }}
         </a>
       </li>

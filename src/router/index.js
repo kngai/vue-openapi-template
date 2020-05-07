@@ -19,6 +19,22 @@ Vue.use(VueRouter)
     component: () => import(/* webpackChunkName: "collections" */ '../views/Collections.vue')
   },
   {
+    path: '/collections/:collectionId',
+    name: 'Collection',
+    // route level code-splitting
+    // this generates a separate chunk (collections.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "collections" */ '../views/Collection.vue')
+  },
+  {
+    path: '/collections/:collectionId/items',
+    name: 'Items',
+    // route level code-splitting
+    // this generates a separate chunk (collections.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "items" */ '../views/Items.vue')
+  },
+  {
     path: '/conformance',
     name: 'Conformance',
     component: () => import(/* webpackChunkName: "conformance" */ '../views/Conformance.vue')

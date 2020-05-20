@@ -1,37 +1,35 @@
 <template>
-  <div>
-    <h1>{{ baseJsonld.name }}</h1>
+  <div class="row">
+    <div class="two-thirds column">
+      <h1>{{ baseJsonld.name }}</h1>
 
-    <p>{{ baseJsonld.description }}</p>
+      <p>{{ baseJsonld.description }}</p>
 
-    <strong>Keywords</strong>:
-    <ul v-if="jsonldLoaded">
-      <li v-for="keyword in keywords" :key="keyword">{{ keyword }}</li>
-    </ul>
+      <strong>Keywords</strong>:
+      <ul v-if="jsonldLoaded">
+        <li v-for="keyword in keywords" :key="keyword">{{ keyword }}</li>
+      </ul>
 
-    <div>
-      <strong>Terms of service:</strong> <span>{{ baseJsonld.termsOfService }}</span><br>
-      <strong>License:</strong> <a :href="baseJsonld.license" target="_blank">{{ baseJsonld.license }}</a>
+      <div>
+        <strong>Terms of service:</strong> <span>{{ baseJsonld.termsOfService }}</span><br>
+        <strong>License:</strong> <a :href="baseJsonld.license" target="_blank">{{ baseJsonld.license }}</a>
+      </div>
+
+      <h2>pygeoapi Links</h2>
+      <ul v-if="jsonLoaded">
+        <li v-for="link in links" :key="link.href">
+          <a
+            :href="link.href"
+            :rel="link.rel"
+            :type="link.type"
+            target="_blank"
+            :hreflang="Object.prototype.hasOwnProperty.call(link, 'hreflang') ? link.hreflang : false">{{ link.title }}
+          </a>
+        </li>
+      </ul>
     </div>
 
-    <hr>
-
-    <h2>pygeoapi Links</h2>
-    <ul v-if="jsonLoaded">
-      <li v-for="link in links" :key="link.href">
-        <a
-          :href="link.href"
-          :rel="link.rel"
-          :type="link.type"
-          target="_blank"
-          :hreflang="Object.prototype.hasOwnProperty.call(link, 'hreflang') ? link.hreflang : false">{{ link.title }}
-        </a>
-      </li>
-    </ul>
-
-    <hr>
-
-    <contact-point></contact-point>
+    <contact-point class="one-third column"></contact-point>
   </div>
 </template>
 
@@ -57,3 +55,6 @@ export default {
   }
 }
 </script>
+
+<style>
+</style>

@@ -1,5 +1,5 @@
 /*
-Vuex module to retrieve a collectionId json and jsonld of a pygeoapi instance
+Vuex module to retrieve the json and jsonld of a collectionId
 */
 
 import axios from 'axios'
@@ -8,7 +8,7 @@ const PYGEOAPI_HOST = process.env.VUE_APP_PYGEOAPI_HOST
 
 // initial state
 const state = {
-  collection: {}
+  collection: {} // collection[id] = {json, loaded}
 }
 
 // getters

@@ -11,7 +11,7 @@ const state = {
   json: {},
   jsonld: {},
   jsonLoaded: false,
-  jsonldLoaded: false,
+  jsonldLoaded: false
 }
 
 // getters
@@ -60,7 +60,10 @@ const mutations = {
 
 // actions
 const actions = {
-  getJson({commit}) {
+  getJson({commit, state}) {
+    if (state.jsonLoaded) {
+      return false // no need to reload if exists
+    }
     axios.get(PYGEOAPI_HOST + '/collections?f=json')
       .then((res) => {
         commit('setJson', { json: res.data })
@@ -72,7 +75,10 @@ const actions = {
         commit('setLoadedJson', false)
       })
   },
-  getJsonld({commit}) {
+  getJsonld({commit, state}) {
+    if (state.jsonldLoaded) {
+      return false // no need to reload if exists
+    }
     axios.get(PYGEOAPI_HOST + '/collections?f=jsonld')
       .then((res) => {
         commit('setJsonld', { jsonld: res.data })

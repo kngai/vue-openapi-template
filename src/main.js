@@ -3,8 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-require('html5-boilerplate/dist/css/normalize.css')
-require('html5-boilerplate/dist/css/main.css')
+require('skeleton-css/css/normalize.css')
+require('skeleton-css/css/skeleton.css')
 
 Vue.config.productionTip = false
 

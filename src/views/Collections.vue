@@ -2,7 +2,7 @@
   <div>
     <h1>Collections in this service</h1>
 
-    <table v-if="jsonLoaded" class="table">
+    <table v-if="jsonLoaded">
       <thead>
         <tr>
           <th>Name</th>

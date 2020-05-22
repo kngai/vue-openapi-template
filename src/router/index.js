@@ -51,6 +51,11 @@ Vue.use(VueRouter)
     path: '/processes',
     name: 'Processes',
     component: () => import(/* webpackChunkName: "processes" */ '../views/Processes.vue')
+  },
+  {
+    path: '/processes/:processId',
+    name: 'Process',
+    component: () => import(/* webpackChunkName: "processes" */ '../views/Process.vue')
   }
 ]
 

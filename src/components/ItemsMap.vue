@@ -1,5 +1,10 @@
 <template>
-  <l-map class="items-map" ref="itemsMap">
+  <l-map
+    class="items-map"
+    ref="itemsMap"
+    :center="center"
+    :zoom="zoom"
+    :max-zoom="maxZoom">
     <l-tile-layer :url="url"></l-tile-layer>
     <l-geo-json :geojson="geojson" @add="fitItemsToView"></l-geo-json>
   </l-map>
@@ -23,12 +28,15 @@ export default {
   },
   data() {
     return {
-      url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+      url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      center: [45, -75],
+      zoom: 10,
+      maxZoom: 18
     }
   },
   methods: {
     fitItemsToView(event) {
-      this.$refs.itemsMap.mapObject.fitBounds(event.target.getBounds())
+      this.$refs.itemsMap.mapObject.fitBounds(event.target.getBounds(), {maxZoom: 10})
     }
   }
 }

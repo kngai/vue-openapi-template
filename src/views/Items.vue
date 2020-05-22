@@ -9,32 +9,28 @@
     </div>
 
     <div class="row">
-      <div class="twelve columns">
-        <items-map v-if="jsonLoaded" :geojson="json"></items-map>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="twelve columns">
+      <div class="six columns">
         <table class="items" v-if="jsonLoaded">
           <thead>
             <tr>
               <th>id</th>
-              <template v-for="(value, key) in lessProperties(features[0].properties)">
-                <th v-if="!key.includes('_')" :key="key">{{ key }}</th>
-              </template>
+              <th v-for="(value, key) in lessProperties(features[0].properties)" :key="key">{{ key }}</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="item in features" :key="item.id">
               <th><router-link :to="{name: 'Item', params: {collectionId: $route.params.collectionId, itemId: item.id}}">{{ item.id }}</router-link></th>
               <template v-for="(value, prop) in lessProperties(item.properties)">
-                <td v-if="prop === 'name'" :key="prop"><a :href="item.properties['name_alt']" target="_blank">{{ value }}</a></td>
-                <td v-else-if="!prop.includes('_')" :key="prop">{{ value }}</td>
+                <td v-if="(value+'').includes('http')" :key="prop"><a :href="value" target="_blank">{{ value.substring(0, 20) }}...</a></td>
+                <td v-else :key="prop">{{ value }}</td>
               </template>
             </tr>
           </tbody>
         </table>
+      </div>
+
+      <div class="six columns">
+        <items-map v-if="jsonLoaded" :geojson="json"></items-map>
       </div>
     </div>
   </section>
@@ -42,7 +38,6 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-
 import ItemsMap from '@/components/ItemsMap.vue'
 
 export default {
@@ -76,7 +71,7 @@ export default {
     lessProperties(properties) {
       const keys = Object.keys(properties)
       let reducedProps = {}
-      for (let i = 0; i<4; i++) {
+      for (let i = 0; i<5; i++) {
         reducedProps[keys[i]] = properties[keys[i]]
       }
       return reducedProps

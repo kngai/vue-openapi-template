@@ -6,6 +6,8 @@ import collections from './modules/collections'
 import collection from './modules/collection'
 import items from './modules/items'
 import item from './modules/item'
+import processes from './modules/processes'
+import proc from './modules/process'
 
 Vue.use(Vuex)
 
@@ -18,6 +20,8 @@ export default new Vuex.Store({
     collections,
     collection,
     items,
-    item
+    item,
+    processes,
+    proc
   }
 })

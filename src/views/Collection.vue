@@ -5,11 +5,7 @@
     <div v-if="jsonLoaded">
       <p>{{collection.description}}</p>
 
-      <strong>Keywords:</strong>
-      <ul>
-        <li
-          v-for="keyword in keywords" :key="keyword">{{keyword}}</li>
-      </ul>
+      <strong>Keywords:</strong> <keywords :keywords="keywords"></keywords>
 
       <h2>Browse</h2>
       <router-link :to="{name: 'Items', params: {collectionId: $route.params.collectionId}}">Browse through the items of "{{collection.title}}"</router-link>
@@ -26,9 +22,13 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import Keywords from '@/components/Keywords.vue'
 
 export default {
   name: 'Collection',
+  components: {
+    Keywords
+  },
   created() {
     this.getCollectionJson()
   },

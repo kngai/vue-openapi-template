@@ -5,10 +5,7 @@
 
       <p>{{ baseJsonld.description }}</p>
 
-      <strong>Keywords</strong>:
-      <ul v-if="jsonldLoaded">
-        <li v-for="keyword in keywords" :key="keyword">{{ keyword }}</li>
-      </ul>
+      <strong>Keywords</strong>: <keywords :keywords="keywords"></keywords>
 
       <div>
         <strong>Terms of service:</strong> <span>{{ baseJsonld.termsOfService }}</span><br>
@@ -34,13 +31,15 @@
 </template>
 
 <script>
-import ContactPoint from '@/components/ContactPoint.vue'
 import { mapGetters, mapState } from 'vuex'
+import ContactPoint from '@/components/ContactPoint.vue'
+import Keywords from '@/components/Keywords.vue'
 
 export default {
   name: 'Home',
   components: {
-    ContactPoint
+    ContactPoint,
+    Keywords
   },
   computed: {
     ...mapState({

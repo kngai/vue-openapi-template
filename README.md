@@ -1,8 +1,9 @@
 # vue-pygeoapi-template
 
-A generic Vue starter template for developing a UI that points to a pygeoapi instance (alternative for `f=html`). This does not contain any special CSS or styling, as it's meant as a starting point. Web content is primarily obtained through pygeoapi's `json` and `jsonld` data with a few exceptions of:
+A generic Vue starter template for developing a UI that points to a pygeoapi instance. This template is using [skeleton](https://github.com/pgrimard/Skeleton) as its initial styling. Web content is primarily obtained through pygeoapi's `json` and `jsonld` data with a few exceptions of:
 - version
 - logo image
+
 
 ## Project setup
 
@@ -43,7 +44,7 @@ npm run lint
 Edit your `.env` config to your production environment and edit your `.env.development` to your development environment.
 
 ```sh
-# You can specify additional env files by placing the following files in your project root:
+# You can specify additional env files in your project root:
 .env                  # loaded in all cases
 .env.local            # loaded in all cases, ignored by git
 .env.[mode]           # only loaded in specified mode (ie. npm run serve will load configs based on .env.development)

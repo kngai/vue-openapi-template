@@ -8,8 +8,7 @@
       <strong>Keywords:</strong>
       <ul>
         <li
-          v-for="keyword in keywords"
-          :key="keyword">{{keyword}}</li>
+          v-for="keyword in keywords" :key="keyword">{{keyword}}</li>
       </ul>
 
       <h2>Browse</h2>
@@ -17,7 +16,7 @@
 
       <h2>pygeoapi Links</h2>
       <ul>
-        <li v-for="link in collection.links" :key="link.title">
+        <li v-for="(link, index) in collection.links" :key="index">
           <a :href="link.href" :type="link.type" target="_blank">{{link.title}}</a>
         </li>
       </ul>

@@ -22,6 +22,6 @@ export default new Vuex.Store({
     items,
     item,
     processes,
-    proc
+    proc // cannot be "process" as it conflicts with process.env
   }
 })

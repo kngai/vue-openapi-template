@@ -11,6 +11,7 @@
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
     "leaflet": "^1.6.0",
+    "leaflet-defaulticon-compatibility": "^0.1.1",
     "skeleton-css": "^2.0.4",
     "vue": "^2.6.11",
     "vue-router": "^3.1.6",

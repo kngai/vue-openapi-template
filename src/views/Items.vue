@@ -70,8 +70,9 @@ export default {
     },
     lessProperties(properties) {
       const keys = Object.keys(properties)
+      const numKeys = keys.length
       let reducedProps = {}
-      for (let i = 0; i<5; i++) {
+      for (let i = 0; (i < 5) && (i < numKeys); i++) {
         reducedProps[keys[i]] = properties[keys[i]]
       }
       return reducedProps

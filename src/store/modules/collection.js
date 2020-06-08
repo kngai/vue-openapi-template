@@ -22,10 +22,7 @@ const getters = {
     if (Object.prototype.hasOwnProperty.call(state.collection, id)) {
       return getters.collection[id].json
     } else {
-      return {
-        json: {},
-        loaded: false
-      }
+      return null
     }
   },
   collectionLoadedById: (state, getters) => (id) => {

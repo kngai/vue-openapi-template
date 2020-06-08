@@ -55,7 +55,7 @@ export default {
   },
   computed: {
     ...mapState({
-      json: state=> state.items.json,
+      json: state => state.items.json,
       jsonLoaded: state => state.items.jsonLoaded
     }),
     ...mapGetters('items', {

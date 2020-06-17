@@ -31,8 +31,13 @@ export default {
   },
   props: {
     geojson: {
-      type: [Object, Array],
-      default: null
+      type: [Object],
+      default: () => {
+        return {
+          type: 'FeatureCollection',
+          features: []
+        }
+      }
     }
   },
   data() {
@@ -47,8 +52,9 @@ export default {
     }
   },
   methods: {
-    fitItemsToView(event) {
-      this.$refs.itemsMap.mapObject.fitBounds(event.target.getBounds(), {maxZoom: 10})
+    fitItemsToView() {
+      const geojsonBounds = this.$refs.geojsonLayer.mapObject.getBounds()
+      this.$refs.itemsMap.mapObject.fitBounds(geojsonBounds, {maxZoom: 10})
     },
     popupItem(feature, layer) {
       layer.bindPopup(String(layer.feature.id), {closeButton: false})

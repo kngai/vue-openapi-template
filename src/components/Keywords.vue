@@ -10,7 +10,7 @@ export default {
   props: {
     keywords: {
       type: Array,
-      default() {
+      default: () => {
         return []
       }
     }

@@ -58,6 +58,7 @@ const mutations = {
 const actions = {
   getJson({commit}, collection) {
     const requestUrl = PYGEOAPI_HOST + '/collections/' + collection.id + '/items?f=json'
+    commit('setLoadedJson', false)
     axios.get(requestUrl)
       .then((res) => {
         commit('setJson', { json: res.data, url: requestUrl })

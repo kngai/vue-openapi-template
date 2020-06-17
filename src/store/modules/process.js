@@ -79,6 +79,7 @@ const actions = {
     if (state.jsonLoaded) {
       return false // no need to reload if exists
     }
+    commit('setLoadedJson', false)
     axios.get(PYGEOAPI_HOST + '/processes/' + proc.id + '?f=json')
       .then((res) => {
         commit('setJson', { json: res.data })

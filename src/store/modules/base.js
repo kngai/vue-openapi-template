@@ -11,7 +11,7 @@ const state = {
   json: {},
   jsonld: {},
   jsonLoaded: false,
-  jsonldLoaded: false,
+  jsonldLoaded: false
 }
 
 // getters
@@ -37,7 +37,7 @@ const getters = {
     if (state.jsonldLoaded) {
       return getters.baseJsonld.keywords
     } else {
-      return {}
+      return []
     }
   },
   provider: (state, getters) => {

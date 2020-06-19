@@ -56,7 +56,12 @@ Vue.use(VueRouter)
     path: '/processes/:processId',
     name: 'Process',
     component: () => import(/* webpackChunkName: "processes" */ '../views/Process.vue')
-  }
+  },
+  {
+    path: '/stac',
+    name: 'Stac',
+    component: () => import(/* webpackChunkName: "stac" */ '../views/Stac.vue')
+  },
 ]
 
 const router = new VueRouter({

@@ -9,6 +9,7 @@ import item from './modules/item'
 import processes from './modules/processes'
 import proc from './modules/process'
 import conformance from './modules/conformance'
+import stac from './modules/stac'
 
 Vue.use(Vuex)
 
@@ -24,6 +25,7 @@ export default new Vuex.Store({
     item,
     processes,
     proc, // cannot be "process" as it conflicts with process.env
-    conformance
+    conformance,
+    stac
   }
 })

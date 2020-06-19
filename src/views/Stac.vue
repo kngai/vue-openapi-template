@@ -2,7 +2,7 @@
   <div>
     <h1>Spatial-Temporal Asset Catalog</h1>
 
-    STaC version: <code>{{ version }}</code>
+    <strong>STAC version:</strong> <code>{{ version }}</code>
     <ul v-if="jsonLoaded">
       <li v-for="(link, index) of links" :key="index">
         <a

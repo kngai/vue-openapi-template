@@ -7,9 +7,10 @@ import axios from 'axios'
 const PYGEOAPI_HOST = process.env.VUE_APP_PYGEOAPI_HOST
 
 // initial state
-const state = {
-  collection: {} // collection[id] = {json, loaded}
-}
+const state = () => ({
+  collection: {}, // collection[id] = {json}
+  collectionsLoaded: []
+})
 
 // getters
 const getters = {
@@ -18,16 +19,16 @@ const getters = {
   },
 
   // from collection
-  collectionById: (state, getters) => (id) => {
+  collectionById: (state) => (id) => {
     if (Object.prototype.hasOwnProperty.call(state.collection, id)) {
-      return getters.collection[id].json
+      return state.collection[id]
     } else {
-      return null
+      return {}
     }
   },
-  collectionLoadedById: (state, getters) => (id) => {
-    if (Object.prototype.hasOwnProperty.call(state.collection, id)) {
-      return getters.collection[id].loaded
+  collectionLoadedById: (state) => (id) => {
+    if (state.collectionsLoaded.includes(id)) {
+      return true
     } else {
       return false
     }
@@ -43,29 +44,29 @@ const getters = {
 
 // mutations
 const mutations = {
-  setCollection(state, payload) {
-    state.collection = {...state.collection, [payload.id]: {
-      json: payload.json,
-      loaded: payload.status
-    }}
+  setCollection(state, {collectionId, json}) {
+    state.collection = {...state.collection, [collectionId]: json}
+  },
+  setLoaded(state, {collectionId}) {
+    state.collectionsLoaded.push(collectionId)
   }
 }
 
 // actions
 const actions = {
-  getJson({commit, state}, collection) {
-    if (Object.prototype.hasOwnProperty.call(state.collection, collection.id)) {
-      if (state.collection[collection.id].loaded) {
-        return false // no need to reload if exists
-      }
+  getJson({commit, getters}, {collectionId}) {
+    if (getters.collectionLoadedById(collectionId)) {
+      return false // no need to reload if exists
     }
-    axios.get(PYGEOAPI_HOST + '/collections/' + collection.id + '?f=json')
+
+    axios.get(PYGEOAPI_HOST + '/collections/' + collectionId + '?f=json')
       .then((res) => {
-        commit('setCollection', { id: collection.id, json: res.data, status: true })
+        commit('setCollection', { collectionId: collectionId, json: res.data })
+        commit('setLoaded', { collectionId: collectionId })
       })
       .catch((error) => {
         console.error(error)
-        commit('setCollection', { id: collection.id, json: {}, status: false })
+        commit('setLoaded', { collectionId: collectionId })
       })
   }
 }

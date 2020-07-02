@@ -7,6 +7,9 @@
 
       <strong>Keywords:</strong> <keywords :keywords="keywords"></keywords>
 
+      <h2>Queryables</h2>
+      {{ queryables }}
+
       <h2>Browse</h2>
       <router-link :to="{name: 'Items', params: {collectionId: $route.params.collectionId}}">Browse through the items of "{{collection.title}}"</router-link>
 
@@ -29,8 +32,9 @@ export default {
   components: {
     Keywords
   },
-  created() {
+  mounted() {
     this.getCollectionJson()
+    this.getQueryablesJson()
   },
   computed: {
     ...mapGetters('collection', [
@@ -38,10 +42,17 @@ export default {
       'collectionLoadedById',
       'keywordsById'
     ]),
+    ...mapGetters('queryables', [
+      'queryablesById'
+    ]),
     collection() {
       return this.collectionById(this.$route.params.collectionId)
     },
+    queryables() {
+      return this.queryablesById(this.$route.params.collectionId)
+    },
     jsonLoaded() {
+      // return this.$store.getters('collection/collectonLoadedById')(this.$route.params.collectionId)
       return this.collectionLoadedById(this.$route.params.collectionId)
     },
     keywords() {
@@ -50,7 +61,10 @@ export default {
   },
   methods: {
     getCollectionJson() {
-      this.$store.dispatch('collection/getJson', {id: this.$route.params.collectionId})
+      this.$store.dispatch('collection/getJson', {collectionId: this.$route.params.collectionId})
+    },
+    getQueryablesJson() {
+      this.$store.dispatch('queryables/getJson', {collectionId: this.$route.params.collectionId})
     }
   }
 }

@@ -3,15 +3,19 @@
     <h1 v-if="jsonLoaded">{{collection.title}}</h1>
 
     <div v-if="jsonLoaded">
+      <strong>Keywords:</strong> <keywords :keywords="keywords"></keywords>
       <p>{{collection.description}}</p>
 
-      <strong>Keywords:</strong> <keywords :keywords="keywords"></keywords>
-
       <h2>Queryables</h2>
-      {{ queryables }}
+      <ul>
+        <li v-for="q in queryables" :key="q.queryable">{{ q.queryable }} (<code>{{ q.type }}</code>)</li>
+      </ul>
 
       <h2>Browse</h2>
-      <router-link :to="{name: 'Items', params: {collectionId: $route.params.collectionId}}">Browse through the items of "{{collection.title}}"</router-link>
+      <ul>
+        <li><router-link :to="{name: 'Items', params: {collectionId: $route.params.collectionId}}">Browse through the items of "{{collection.title}}"</router-link></li>
+        <li><router-link :to="{name: 'Queryables', params: {collectionId: $route.params.collectionId}}">Browse through the queryables of "{{collection.title}}"</router-link></li>
+      </ul>
 
       <h2>pygeoapi Links</h2>
       <ul>
@@ -43,7 +47,8 @@ export default {
       'keywordsById'
     ]),
     ...mapGetters('queryables', [
-      'queryablesById'
+      'queryablesById',
+      'queryablesLoadedById'
     ]),
     collection() {
       return this.collectionById(this.$route.params.collectionId)
@@ -52,8 +57,7 @@ export default {
       return this.queryablesById(this.$route.params.collectionId)
     },
     jsonLoaded() {
-      // return this.$store.getters('collection/collectonLoadedById')(this.$route.params.collectionId)
-      return this.collectionLoadedById(this.$route.params.collectionId)
+      return this.collectionLoadedById(this.$route.params.collectionId) && this.queryablesLoadedById(this.$route.params.collectionId)
     },
     keywords() {
       return this.keywordsById(this.$route.params.collectionId)

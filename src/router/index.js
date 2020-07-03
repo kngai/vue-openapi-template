@@ -27,6 +27,14 @@ Vue.use(VueRouter)
     component: () => import(/* webpackChunkName: "collection" */ '../views/Collection.vue')
   },
   {
+    path: '/collections/:collectionId/queryables',
+    name: 'Queryables',
+    // route level code-splitting
+    // this generates a separate chunk (collections.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "items" */ '../views/Queryables.vue')
+  },
+  {
     path: '/collections/:collectionId/items',
     name: 'Items',
     // route level code-splitting

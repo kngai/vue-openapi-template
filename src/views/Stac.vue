@@ -22,7 +22,12 @@ import { mapGetters, mapState } from 'vuex'
 export default {
   name: 'Collections',
   created() {
-    this.getStacJson()
+    this.getJsonAndRefresh()
+  },
+  watch: {
+    $route() {
+      this.getJsonAndRefresh()
+    }
   },
   computed: {
     ...mapState({
@@ -34,7 +39,7 @@ export default {
     ])
   },
   methods: {
-    getStacJson() {
+    getJsonAndRefresh() {
       this.$store.dispatch('stac/getJson')
     }
   }

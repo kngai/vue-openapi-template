@@ -31,6 +31,13 @@
 
       <div class="six columns">
         <items-map v-if="jsonLoaded" :geojson="json"></items-map>
+        <label for="items-limit">Limit:</label>
+        <select id="items-limit" name="limit" v-model="limit" @change="changeLimit()">
+          <option :value="10">10 (default)</option>
+          <option :value="100">100</option>
+          <option :value="500">500</option>
+          <option :value="1000">1000</option>
+        </select>
       </div>
     </div>
   </section>
@@ -46,11 +53,17 @@ export default {
     ItemsMap
   },
   created() {
-    this.getJson()
+    this.getJsonAndRefresh()
+  },
+  watch: {
+    $route() {
+      this.getJsonAndRefresh()
+    }
   },
   data() {
     return {
-      PYGEOAPI_HOST: process.env.VUE_APP_PYGEOAPI_HOST
+      PYGEOAPI_HOST: process.env.VUE_APP_PYGEOAPI_HOST,
+      limit: 10
     }
   },
   computed: {
@@ -65,8 +78,11 @@ export default {
     })
   },
   methods: {
-    getJson() {
-      this.$store.dispatch('items/getJson', {id: this.$route.params.collectionId})
+    getJsonAndRefresh() {
+      if (Object.prototype.hasOwnProperty.call(this.$route.query, 'limit')) {
+        this.limit = this.$route.query.limit
+      }
+      this.$store.dispatch('items/getJson', {collectionId: this.$route.params.collectionId, limit: this.limit})
     },
     lessProperties(properties) {
       const keys = Object.keys(properties)
@@ -76,6 +92,9 @@ export default {
         reducedProps[keys[i]] = properties[keys[i]]
       }
       return reducedProps
+    },
+    changeLimit() {
+      this.$router.push({ query: { limit: this.limit } })
     }
   }
 }

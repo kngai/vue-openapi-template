@@ -36,9 +36,13 @@ export default {
   components: {
     Keywords
   },
-  mounted() {
-    this.getCollectionJson()
-    this.getQueryablesJson()
+  created() {
+    this.getJsonAndRefresh()
+  },
+  watch: {
+    $route() {
+      this.getJsonAndRefresh()
+    }
   },
   computed: {
     ...mapGetters('collection', [
@@ -64,10 +68,8 @@ export default {
     }
   },
   methods: {
-    getCollectionJson() {
+    getJsonAndRefresh() {
       this.$store.dispatch('collection/getJson', {collectionId: this.$route.params.collectionId})
-    },
-    getQueryablesJson() {
       this.$store.dispatch('queryables/getJson', {collectionId: this.$route.params.collectionId})
     }
   }

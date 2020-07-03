@@ -7,11 +7,11 @@ import axios from 'axios'
 const PYGEOAPI_HOST = process.env.VUE_APP_PYGEOAPI_HOST
 
 // initial state
-const state = {
+const state = () => ({
   json: {},
   jsonRequestUrl: '',
   jsonLoaded: false
-}
+})
 
 // getters
 const getters = {

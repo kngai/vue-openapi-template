@@ -56,8 +56,11 @@ const mutations = {
 
 // actions
 const actions = {
-  getJson({commit}, collection) {
-    const requestUrl = PYGEOAPI_HOST + '/collections/' + collection.id + '/items?f=json'
+  getJson({commit, state}, {collectionId, limit}) {
+    const requestUrl = PYGEOAPI_HOST + '/collections/' + collectionId + '/items?f=jsonld&limit=' + limit
+    if (state.jsonRequestUrl === requestUrl) {
+      return false // do nothing if already the same
+    }
     commit('setLoadedJson', false)
     axios.get(requestUrl)
       .then((res) => {

@@ -36,7 +36,12 @@ export default {
     ItemsMap
   },
   created() {
-    this.getJson()
+    this.getJsonAndRefresh()
+  },
+  watch: {
+    $route() {
+      this.getJsonAndRefresh()
+    }
   },
   data() {
     return {
@@ -53,7 +58,7 @@ export default {
     })
   },
   methods: {
-    getJson() {
+    getJsonAndRefresh() {
       this.$store.dispatch('item/getJson', {id: this.$route.params.collectionId, itemId: this.$route.params.itemId})
     }
   }

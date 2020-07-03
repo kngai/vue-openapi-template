@@ -14,7 +14,7 @@ import { mapGetters, mapState } from 'vuex'
 export default {
   name: 'Collections',
   created() {
-    this.getConformanceJson()
+    this.getJsonAndRefresh()
   },
   computed: {
     ...mapState({
@@ -25,7 +25,7 @@ export default {
     ])
   },
   methods: {
-    getConformanceJson() {
+    getJsonAndRefresh() {
       this.$store.dispatch('conformance/getJson')
     }
   }

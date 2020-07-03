@@ -30,7 +30,12 @@ export default {
     Keywords
   },
   created() {
-    this.getJson()
+    this.getJsonAndRefresh()
+  },
+  watch: {
+    $route() {
+      this.getJsonAndRefresh()
+    }
   },
   computed: {
     ...mapState({
@@ -42,7 +47,7 @@ export default {
     ])
   },
   methods: {
-    getJson() {
+    getJsonAndRefresh() {
       this.$store.dispatch('processes/getJson')
     }
   }

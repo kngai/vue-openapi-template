@@ -57,7 +57,7 @@ const mutations = {
 // actions
 const actions = {
   getJson({commit, state}, {collectionId, limit}) {
-    const requestUrl = PYGEOAPI_HOST + '/collections/' + collectionId + '/items?f=jsonld&limit=' + limit
+    const requestUrl = PYGEOAPI_HOST + '/collections/' + collectionId + '/items?f=json&limit=' + limit
     if (state.jsonRequestUrl === requestUrl) {
       return false // do nothing if already the same
     }

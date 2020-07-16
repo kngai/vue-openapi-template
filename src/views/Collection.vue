@@ -7,7 +7,7 @@
       <p>{{collection.description}}</p>
 
       <h2>Queryables</h2>
-      <ul>
+      <ul v-if="quaryablesLoaded">
         <li v-for="q in queryables" :key="q.queryable">{{ q.queryable }} (<code>{{ q.type }}</code>)</li>
       </ul>
 
@@ -60,8 +60,11 @@ export default {
     queryables() {
       return this.queryablesById(this.$route.params.collectionId)
     },
+    quaryablesLoaded() {
+      return this.queryablesLoadedById(this.$route.params.collectionId)
+    },
     jsonLoaded() {
-      return this.collectionLoadedById(this.$route.params.collectionId) && this.queryablesLoadedById(this.$route.params.collectionId)
+      return this.collectionLoadedById(this.$route.params.collectionId) && this.quaryablesLoaded
     },
     keywords() {
       return this.keywordsById(this.$route.params.collectionId)

@@ -79,9 +79,7 @@ export default {
   },
   methods: {
     getJsonAndRefresh() {
-      if (Object.prototype.hasOwnProperty.call(this.$route.query, 'limit')) {
-        this.limit = this.$route.query.limit
-      }
+      this.updateLimitFromRoute()
       this.$store.dispatch('items/getJson', {collectionId: this.$route.params.collectionId, limit: this.limit})
     },
     lessProperties(properties) {
@@ -95,6 +93,13 @@ export default {
     },
     changeLimit() {
       this.$router.push({ query: { limit: this.limit } })
+    },
+    updateLimitFromRoute() {
+      if (Object.prototype.hasOwnProperty.call(this.$route.query, 'limit')) {
+        this.limit = this.$route.query.limit
+      } else {
+        this.limit = 10
+      }
     }
   }
 }

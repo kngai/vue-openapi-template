@@ -58,3 +58,25 @@ See [Modes and Environment Variables](https://cli.vuejs.org/guide/mode-and-env.h
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+## Static web hosting
+By default, it builds and compiles with `mode: 'history'` in the Vue router for deployment to static web hosting services. Be sure to have proper NotFound redirects included for your web hosting services.
+
+Netlify `_redirects` file:
+```
+# Netlify settings for single-page application
+/*    /index.html   200
+```
+
+Apache `.htaccess` file with a subfolder:
+```
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /<subfolder>
+RewriteRule ^<subfolder>/index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /<subfolder>/index.html [L]
+</IfModule>
+```

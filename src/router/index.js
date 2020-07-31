@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import NotFound from '../views/404.vue'
 
 Vue.use(VueRouter)
 
@@ -21,33 +22,21 @@ Vue.use(VueRouter)
   {
     path: '/collections/:collectionId',
     name: 'Collection',
-    // route level code-splitting
-    // this generates a separate chunk (collections.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "collection" */ '../views/Collection.vue')
   },
   {
     path: '/collections/:collectionId/queryables',
     name: 'Queryables',
-    // route level code-splitting
-    // this generates a separate chunk (collections.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "items" */ '../views/Queryables.vue')
   },
   {
     path: '/collections/:collectionId/items',
     name: 'Items',
-    // route level code-splitting
-    // this generates a separate chunk (collections.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "items" */ '../views/Items.vue')
   },
   {
     path: '/collections/:collectionId/items/:itemId',
     name: 'Item',
-    // route level code-splitting
-    // this generates a separate chunk (collections.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "item" */ '../views/Item.vue')
   },
   {
@@ -70,6 +59,11 @@ Vue.use(VueRouter)
     name: 'Stac',
     component: () => import(/* webpackChunkName: "stac" */ '../views/Stac.vue')
   },
+  {
+    path: '*',
+    name: 'NotFound',
+    component: NotFound
+  }
 ]
 
 const router = new VueRouter({

@@ -1,6 +1,6 @@
-# vue-pygeoapi-template
+# vue-openapi-template
 
-A generic Vue starter template for developing a UI that points to a pygeoapi instance. This template is using [skeleton](https://github.com/pgrimard/Skeleton) as its initial styling. Web content is primarily obtained through pygeoapi's `json` and `jsonld` data with a few exceptions of:
+A generic Vue starter template for developing a UI that points to an openapi instance. This template is using [skeleton](https://github.com/pgrimard/Skeleton) as its initial styling. Web content is primarily obtained through openapi's `json` and `jsonld` data with a few exceptions of:
 - version
 - logo image
 

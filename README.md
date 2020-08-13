@@ -1,8 +1,10 @@
-# vue-openapi-template
+# vue-ogcapi-app
 
-A generic Vue starter template for developing a UI that points to an openapi instance. This template is using [skeleton](https://github.com/pgrimard/Skeleton) as its initial styling. Web content is primarily obtained through openapi's `json` and `jsonld` data with a few exceptions of:
+A generic Vue starter app for developing a UI that points to an OGC API instance. This template is using [skeleton](https://github.com/pgrimard/Skeleton) as its initial styling. Web content is primarily obtained through OGC API's `json` and `jsonld` data with a few exceptions of:
 - version
 - logo image
+
+The demo of this project points to a [demo instance of pygeoapi](https://demo.pygeoapi.io/).
 
 
 ## Project setup
@@ -61,15 +63,15 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
 ## Static web hosting
-By default, it builds and compiles with `mode: 'history'` in the Vue router for deployment to static web hosting services. Be sure to have proper NotFound redirects included for your web hosting services.
+By default, Vue CLI builds and compiles with `mode: 'history'` in the Vue router for deployment to static web hosting services. Be sure to have proper NotFound redirects included for your web hosting services.
 
-Netlify `_redirects` file:
+Example Netlify `_redirects` file:
 ```
 # Netlify settings for single-page application
 /*    /index.html   200
 ```
 
-Apache `.htaccess` file with a subfolder:
+Example Apache `.htaccess` file with a subfolder:
 ```
 <IfModule mod_rewrite.c>
 RewriteEngine On
